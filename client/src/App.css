@@ -1,3 +1,17 @@
 .heading-1 h1{
     text-align: center;
 }
+
+.collapse-menu{
+  padding: 2rem 15rem;
+}
+
+button.ant-btn.css-dev-only-do-not-override-240cud.ant-btn-default.ant-btn-color-default.ant-btn-variant-outlined {
+    margin-right: 1rem;
+}
+
+.ant-card.ant-card-bordered.css-dev-only-do-not-override-240cud , .ant-card.ant-card-bordered.css-dev-only-do-not-override-240cud {
+    margin: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.215);
+
+}

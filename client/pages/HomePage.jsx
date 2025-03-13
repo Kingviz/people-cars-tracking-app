@@ -49,7 +49,7 @@ const HomePage = () => {
       {updateCarError && <p>Error updating car: {updateCarError.message}</p>}
       {deleteCarError && <p>Error deleting car: {deleteCarError.message}</p>}
 
-     
+     <div className='collapse-menu'>
       <Collapse>
         <Panel header="Add Person" key="1">
           <PersonForm
@@ -69,6 +69,7 @@ const HomePage = () => {
           </Panel>
         )}
       </Collapse>
+      </div>
 
       
       {data.people.map(person => (
