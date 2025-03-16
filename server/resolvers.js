@@ -20,14 +20,14 @@ const resolvers = {
   Query: {
     people: () => people,
     cars: () => cars,
-    person: (_, { id }) => people.find(person => person.id === id),
-    car: (_, { id }) => cars.find(car => car.id === id),
+    person: (_, { id }) => people.find((person) => person.id === id),
+    car: (_, { id }) => cars.find((car) => car.id === id),
     personWithCars: (_, { id }) => {
-      const person = people.find(person => person.id === id);
+      const person = people.find((person) => person.id === id);
       if (!person) throw new Error('Person not found');
       return {
         ...person,
-        cars: cars.filter(car => car.personId === id),
+        cars: cars.filter((car) => car.personId === id),
       };
     },
   },
@@ -38,68 +38,67 @@ const resolvers = {
       return person;
     },
     updatePerson: (_, { id, firstName, lastName }) => {
-      const person = people.find(person => person.id === id);
+      const person = people.find((person) => person.id === id);
       if (!person) throw new Error('Person not found');
       if (firstName) person.firstName = firstName;
       if (lastName) person.lastName = lastName;
       return person;
     },
     deletePerson: (_, { id }) => {
-      const index = people.findIndex(person => person.id === id);
+      const index = people.findIndex((person) => person.id === id);
       if (index === -1) throw new Error('Person not found');
       people.splice(index, 1);
-      cars = cars.filter(car => car.personId !== id); 
+      cars = cars.filter((car) => car.personId !== id); // Remove associated cars
       return id;
     },
     addCar: (_, { year, make, model, price, personId }) => {
-      
-      const person = people.find(person => person.id === personId);
+      const person = people.find((person) => person.id === personId);
       if (!person) throw new Error('Person not found');
 
-      
       const car = {
         id: String(cars.length + 1),
-        year: parseInt(year, 10), 
+        year: parseInt(year, 10),
         make,
         model,
-        price: parseFloat(price), 
+        price: parseFloat(price),
         personId,
       };
       cars.push(car);
       return car;
     },
-    
     updateCar: (_, { id, year, make, model, price, personId }) => {
-      const car = cars.find(car => car.id === id);
+      const car = cars.find((car) => car.id === id);
       if (!car) throw new Error('Car not found');
-      if (year) car.year = year;
+
+      if (year) car.year = parseInt(year, 10);
       if (make) car.make = make;
       if (model) car.model = model;
-      if (price) car.price = price;
+      if (price) car.price = parseFloat(price);
+
       if (personId) {
-        const person = people.find(person => person.id === personId);
+        const person = people.find((person) => person.id === personId);
         if (!person) throw new Error('Person not found');
         car.personId = personId;
       }
       return car;
     },
     deleteCar: (_, { id }) => {
-      const index = cars.findIndex(car => car.id === id);
+      const index = cars.findIndex((car) => car.id === id);
       if (index === -1) throw new Error('Car not found');
       cars.splice(index, 1);
       return id;
     },
   },
   Person: {
-    cars: (person) => cars.filter(car => car.personId === person.id),
+    cars: (person) => cars.filter((car) => car.personId === person.id),
   },
   Car: {
     person: (car) => {
-      const person = people.find(person => person.id === car.personId);
+      const person = people.find((person) => person.id === car.personId);
       if (!person) throw new Error('Person not found');
       return person;
     },
   },
 };
 
-module.exports = resolvers;
+export default resolvers; // ✅ Use ESM export
