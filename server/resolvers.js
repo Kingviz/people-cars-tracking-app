@@ -101,4 +101,4 @@ const resolvers = {
   },
 };
 
-export default resolvers; // ✅ Use ESM export
+export default resolvers; 
